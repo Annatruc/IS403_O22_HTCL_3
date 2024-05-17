@@ -1,5 +1,5 @@
 # IS403.O22.HTCL - Data Analysis in Business
-https://github.com/chanhlm/IS403_O22_HTCL_3
+https://github.com/Annatruc/IS403_O22_HTCL_3
 
 * Lecturer: Assoc. Prof. Ph.D Nguyen Dinh Thuan
 * Instructor: Mr. Nguyen Minh Nhut
