@@ -1,0 +1,713 @@
+\documentclass{ieeeojies}
+\usepackage{indentfirst}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{float}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+\title{The Relationship between Bitcoin, Nasdaq and U.S. Dollar Index}
+
+\author{\uppercase{Ho Quang Lam}\authorrefmark{1},
+\uppercase{Le Thi Le Truc\authorrefmark{2}, and Nguyen Thanh Dat}\authorrefmark{3}}
+
+\address[1]{Faculty of Information Systems, University of Information Technology, (e-mail: 21521049@gm.uit.edu.vn)}
+\address[2]{Faculty of Information Systems, University of Information Technology, (e-mail: 21521586@gm.uit.edu.vn)}
+\address[3]{Faculty of Information Systems, University of Information Technology, (e-mail: 21521938@gm.uit.edu.vn)}
+
+\markboth
+{Author \headeretal: Ho Quang Lam, Le Thi Le Truc, Nguyen Thanh Dat}
+{Author \headeretal: Ho Quang Lam, Le Thi Le Truc, Nguyen Thanh Dat}
+
+\begin{abstract}
+This paper investigates the long-run interaction between Bitcoin, Nasdaq and U.S. Dollar Index by applying weekly data from a
+January 3, 2013 until March 1, 2024.This study uses  Linear Regression (LR), Long Short-Term Memory (LSTM), Autoregressive Integrated Moving Average (ARIMA), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU), Gauss Newton Method Non-Linear (GNM), Random Forest, RESCNN methods to examine the long-run association between the variables.
+\end{abstract}
+
+\begin{keywords}
+Keywords: Bitcoin, Nasdaq, U.S. Dollar Index
+\end{keywords}
+
+\titlepgskip=-15pt
+
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+The development of money has been influenced by the evolving demands of human cultures and technological advancements. Over time, paper cash emerged to address the requirements of growing economies, and the transition from physical goods to plastic cards promoted faster transactions. With the advent of the electronic era, electronic cash systems were developed, enabling seamless and rapid transactions. However, the decentralized nature of Bitcoin, based on blockchain technology, is currently challenging well-established financial institutions. In recent years, the number of cryptocurrencies has exponentially increased, with Bitcoin being the dominant player. Understanding the relationship between Bitcoin and traditional financial indicators, such as the U.S. Dollar Index and the Nasdaq stock market index, is crucial for grasping its valuation and integration into the global financial system.
+
+In the course of this research, we use  Linear Regression (LR), Long Short-Term Memory (LSTM), Autoregressive Integrated Moving Average (ARIMA), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU), Gauss Newton Method Non-Linear (GNM), Random Forest, RESCNN methods to examine the long-run association between the variables.
+
+\section{Related Works}
+Dwyer (2015) \cite{b1} delivers an influential paper demonstrating that BTC has higher average monthly volatility than gold or a group of international currencies. Urquhart (2016) \cite{b2}, Nadarajah and Chu (2017) \cite{b3}, and Bariviera (2017) \cite{b4} all corroborate this result by demonstrating BTC’s inefficient returns. 
+
+Several studies have explored the relationship between Bitcoin, gold, and traditional currencies, such as the US dollar. Dyhrberg (2016) \cite{b5} suggests that Bitcoin can be a useful tool for risk management, especially for risk-averse investors who anticipate negative market shocks. Baur et al. (2018) \cite{b6} argue that Bitcoin exhibits different return, volatility, and correlation characteristics compared to gold and the US dollar, indicating its unique nature as an asset.
+
+Dirican and Canoz (2017) \cite{b7} employed the ARDL boundary test approach to find a cointegration relationship between Bitcoin prices and the NASDAQ index, revealing hidden links underneath apparent discrepancies.
+
+Studies have also examined the relationship between Bitcoin and equity markets, particularly during periods of uncertainty. The COVID-19 pandemic has acted as a catalyst for further research in this area. Quantile regression analysis conducted by Nguyen (2022) \cite{b8} revealed that during periods of high uncertainty, such as the COVID-19 crisis, the returns of the S\&P 500 had a significant impact on Bitcoin returns. Additionally, stock market shocks had an effect on Bitcoin volatility during these years. This indicates that during times of heightened uncertainty, there is a stronger connection between the stock market and Bitcoin.
+
+Several significant findings have emerged from studies examining the relationship between Bitcoin and the stock market. Wang et al. (2019) \cite{b9} found that the S\&P 500 and Dow Jones indexes have a positive influence on Bitcoin, suggesting a favorable association between the cryptocurrency and the stock market. Maghyereh and Abdoh (2021) \cite{b10} discovered that Bitcoin and the US stock market exhibit positive co-movement at specific frequencies and time periods, indicating a potential interdependence between the two. Additionally, Bouri et al. (2022) \cite{b11} demonstrated that the co-movement between US equities and Bitcoin changes over time and frequency, highlighting the dynamic nature of their interaction.
+\section{Materials}
+\subsection{Dataset}
+We get data on cryptocurrency prices from the Investing.com website with three datasets contains historical price data for three popular cryptocurrencies: Bitcoin, Nasdaq, U.S. Dollar Index and covers the time period from January 03, 2013 to June 1, 2024. Each dataset consists of 2023 rows and 7 columns include Date, Price, Open, High, Low, Vol., Change 
+
+Date: This column represents the date of the recorded data point. It provides the chronological information for each observation in the dataset.
+
+Price: This column represents the closing price of the asset or security being analyzed (e.g., Bitcoin, stock, commodity) on a specific date. It indicates the value of the asset at the end of the trading day.
+
+Open: This column represents the opening price of the asset on a specific date. It indicates the value of the asset at the beginning of the trading day.
+
+High: This column represents the highest price reached by the asset during the trading day on a specific date. It provides insight into the peak value of the asset during that period.
+
+Low: This column represents the lowest price reached by the asset during the trading day on a specific date. It provides insight into the lowest value of the asset during that period.
+
+Vol. (Volume): This column represents the trading volume of the asset on a specific date. It indicates the total number of shares, contracts, or units of the asset that were traded during the trading day.
+
+Change: This column represents the percentage change in the price of the asset compared to the previous trading day's closing price. It indicates the percentage increase or decrease in value between consecutive trading days.
+\subsection{Descriptive Statistics}
+\begin{table}[H]
+  \centering
+  \caption{US DOLLAR, NASDAQ, BITCOIN’s Descriptive Statistics}
+  \includegraphics[width=0.8\linewidth]{images/distatete.png}
+  \label{fig:cm}
+\end{table}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{images/figure1.png}
+    \caption{Bitcoin stock price's boxplot}
+    \label{fig:1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{images/figure2.png}
+    \caption{Bitcoin stock price's histogram}
+    \label{fig:2}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{images/figure3.png}
+    \caption{NASDAQ stock price's boxplot}
+    \label{fig:1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{images/figure4.png}
+    \caption{NASDAQ stock price's histogram}
+    \label{fig:2}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{images/figure5.png}
+    \caption{US DOLLAR stock price's boxplot}
+    \label{fig:1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{images/figure6.png}
+    \caption{US DOLLAR stock price's histogram}
+    \label{fig:2}
+    \end{minipage}
+\end{figure}
+
+\section{Methodology} 
+\subsection{Linear Regression}
+Simple linear regression \cite{b12} estimates how much Y will change when X changes by a
+certain amount. With the correlation coefficient, the variables X and Y are inter‐
+changeable. With regression, we are trying to predict the Y variable from X using a
+linear relationship (i.e., a line):\\
+\indent A simple linear regression model has the form: 
+\[Y=\beta_0+\beta_1X+\varepsilon\]
+Where:\\
+	\indent\textbullet\ Y is the dependent variable\\
+	\indent\textbullet\ \(X_1\) is the independent variable.\\
+	\indent\textbullet\ \(\beta_0\) is the intercept term.\\
+	\indent\textbullet\ \(\beta_1\) is the regression coefficient for the independent variable.\\
+	\indent\textbullet\ \(\varepsilon\) is the error term.\\
+
+When there are multiple predictors, the equation is simply extended to accommodate
+them:
+A multiple linear regression model has the form: 
+\[Y=\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_kX_k+\varepsilon\]
+Where:\\
+	\indent\textbullet\ Y is the dependent variable\\
+	\indent\textbullet\ \(X_1, X_2, \ldots, X_k\) are the independent variables.\\
+	\indent\textbullet\ \(\beta_0\) is the intercept term.\\
+	\indent\textbullet\ \(\beta_1,..., \beta_k\) are the regression coefficients for the independent variables.\\
+	\indent\textbullet\ \(\varepsilon\) is the error term.
+
+\subsection{ARIMA}
+\indent ARIMA \cite{b13} stands for AutoRegressive (AR) Integrated (I) Moving Average (MA) and represents a cornerstone in time series forecasting. It is a statistical method that has gained immense popularity due to its efficacy in handling various standard temporal structures present in time series data.\\
+\indent AR(p): Autoregression - is the process of finding the relationship between
+current data and p previous data (lag)
+\[Y=\beta_0+\beta_1X_{t-1}+\beta_2X_{t-2}+\cdots+\beta_kX_{t-k}+\varepsilon_{t}\]
+
+Where:\\
+	\indent\textbullet\ Y is current observed value.\\
+	\indent\textbullet\ \(X_{t-1}, X_{t-2}, \ldots, X_{t-k}\) are past observed
+values.\\
+	\indent\textbullet\ \(\beta_0\) is the intercept term.\\
+	\indent\textbullet\ \(\beta_1,..., \beta_k\) are regression analysis
+parameters.\\
+	\indent\textbullet\ \(\varepsilon_{t}\) random forecasting error of the current
+period. The expected mean value is 0.\\
+\\
+\indent I(d): Integrated - Compare the difference between d observations (difference
+between the current value and d previous values)\\
+\indent\textbullet\ First Difference I(1): z(t) = y(t) - y(t - 1)\\
+\indent\textbullet\ Second Difference I(2): h(t) = z(t) - z(t - 1)\\
+\\
+\indent MA(q): Moving Average: is the process of finding a relationship between
+current data and q past errors\
+\indent \[y_{t} = \beta_0 + \varepsilon_{t} + \beta_1\varepsilon_{t - 1} + \ldots + \beta_q\varepsilon_{t - q}\]\
+Where:\\
+        \indent\textbullet\ y(t) is current observed value.\\
+	\indent\textbullet\ \(\varepsilon_(t-1), \varepsilon_(t-2), \ldots, \varepsilon_(t-k)\) are forecast error.\\
+	\indent\textbullet\ \(\beta_0\) is the intercept term.\\
+	\indent\textbullet\ \(\beta_1,..., \beta_k\) mean values of y(t) and moving
+average coefficients.\\
+	\indent\textbullet\ \(\varepsilon_(t)\) random forecasting error of the current
+period. The expected mean value is 0.\\
+        \indent\textbullet\ q is the number of past errors used in the moving average.
+
+\subsection{RNN}
+\indent Recurrent Neural Networks (RNNs) \cite{b14} is one of the neural networks of the network for professional data series processing.
+\\
+\indent A recurrent neural network (RNN) is essentially designed to handle sequential data by utilizing the concept of recurrent neural network architecture where information flows only in one direction from input to output. It has a type of feedback loop method that allows for information to be passed from one step of the network to the next to maintain a kind of memory usage. An RNN has sequence input data with unspecified size. This structure is represented and expressed in Figure 7
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/rnn_lt.png}
+    \caption{Recurrent neural network (RNN)}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+Fomula:
+\[h_t = tanh ( W_x_h xt + W_h_hx_(_t_-_1_) + b_h\]
+
+\[y_x_h = W_h_yh_t + b_y\]
+\indent Where:\\
+\indent\textbullet\ $h_t$: 
+Hidden status at the present time $t$\\
+\indent\textbullet\ $W_x$: 
+Input mapping weight matrix $h_x$ 
+enter hidden state \\
+\indent\textbullet\ $h_x$: Input at the current time \\
+\indent\textbullet\ $W_h$: The weight matrix maps the previous hidden state $h_{t-1}$ enter a new hidden state $h_t$ \\
+\indent\textbullet\ $h_{t-1}$: Hidden status at the previous time $(t-1)$
+
+\subsection{GRU}
+\indent The Gated Recurrent Unit (GRU) is an improved version of RNN.
+\\
+\indent GRU uses a reset gate and an update gate to solve the vanishing gradient problem. These gates decide what information to be sent to the output. They can keep the information from long back without diminishing it as the training continues. We can visualize the architecture of GRU below:
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/gru_lt.png}
+    \caption{Gated Recurrent Unit (GRU)}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+\\
+\indent The reset gate determines the information of the past that it needs to forget. 
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/reset.png}
+    \caption{Reset Gate - Gated Recurrent Unit (GRU)}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+
+\indent Update gate is responsible for long-term memory. It determines the amount of information on the previous steps that must be passed further.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/update.png}
+    \caption{Update Gate - Gated Recurrent Unit (GRU)}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+
+\indent This is how GRU solves the vanishing gradient problem. It keeps the relevant information and passes down the next step. It can perform excellently if trained correctly.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/final.png}
+    \caption{Final Output - Gated Recurrent Unit (GRU)}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+
+\subsection{LSTM}
+\indent Long Short-Term Memory is an improved version of recurrent neural network\\
+\indent A traditional RNN has a single hidden state that is passed through time, which can make it difficult for the network to learn long-term dependencies. LSTMs model addresses this problem by introducing a memory cell, which is a container that can hold information for an extended period.\\
+\indent LSTM architectures are capable of learning long-term dependencies in sequential data, which makes them well-suited for tasks such as language translation, speech recognition, and time series forecasting.\\
+\indent In the t state of the LSTM model:
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/lstm_lt.png}
+    \caption{Long Short-Term Memory (LSTM)}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+
+\noindent \textbf{Forget Gate}: $f_t = (W_f[h_{t-1}, x_t] + b_f$ \\
+	\textbf{Input Gate}: $i_t = (W_i[h_{t-1}, x_t] + b_i$ \\
+	\textbf{Output Gate}: $o_t = (W_o[h_{t-1}, x_t] + b_o$\\
+	\textbf{Temporary cell state}: \[\tilde{C}_t = \tanh(W_c[h_{t-1}, x_t] + b_c\]
+	\textbf{Current cell state}: $C_t = f_t * C_{t-1} + i_t * \tilde{C}_t$ \
+ 
+\subsection{GAUSS-NEWTON}
+\indent The Gauss-Newton method is an iterative method for finding the experience of linear nonlinear optimization problems. It is based on the Jacobian objective function of the calculation matrix and uses this matrix to update the parameter vector in the direction of minimization.\\
+\indent This method has the advantage of converging faster than the classical gradient descent method, especially when the objective function is nearly square. However, it also has the disadvantage of having to calculate the Jacobian matrix, which can be computationally expensive, especially with complex functions.\\
+\indent  Function focus: \\
+\indent $f(\mathbf{p}) = \mathbf{y}\text{train} - \mathbf{f}(\mathbf{p}, \mathbf{x}\text{train})$
+\\
+Where:\\
+\indent\textbullet\ $\mathbf{p} = [a, b, c]$ is the parameter vector\\
+\indent\textbullet\ $\mathbf{x}_\text{train}$ is the input data\\
+\indent\textbullet\ $\mathbf{y}_\text{train}$ is the output data\\
+
+\indent Jacobian matrix:\\
+\indent $\mathbf{J}(\mathbf{p}, \mathbf{x}) = \begin{bmatrix}
+\exp(b \mathbf{x}) & a \mathbf{x} \exp(b \mathbf{x}) & 1 \
+\end{bmatrix}$
+
+
+
+\subsection{RANDOM FOREST}
+\indent The Random forest model will apply both ensemble learning and booster sampling methods. The order of the process of creating a forest model is as follows:
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/random_lt.png}
+    \caption{Random Forest}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+
+\subsection{RESCNN}
+\indent Residual convolutional neural network (Res-CNN) is an architectural convolutional neural network designed to solve problems that arise when the network is too deep. Different from traditional Convolutional Neural Networks (CNN), Res-CNN adds collaborative blocks (residual blocks) to enhance the ability to learn deep privileges.
+\\
+\indent Specifically, Res-CNN starts with the first layer to receive data images. Next, the network uses convolutional layers to extract special input image words. However, unlike CNN, Res-CNN uses block communities consisting of 2 or 3 fast active layers, accompanied by hopping connections (skip connections). This connection helps transmit information from the input directly to the output of the block, avoiding information loss when the network is too deep.
+\\
+\indent Next, the network uses pooling layers to reduce the feature map's size, which reduces the number of parameters to learn. Finally, the fully connected layers will be used to perform classification based on the extracted features. The training process of Res-CNN uses a backpropagation algorithm to update the network parameters.
+\\
+\indent By combining slow distribution layers with residual blocks, Res-CNN can better learn special depths, thereby improving the performance of distributed CNN systems.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/rescnn.png}
+    \caption{ResCNN}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+
+\section{Result}
+\subsection{Evaluation Methods}
+\textbf{Mean Percentage Absolute Error} (MAPE): measures the average percentage error between the predicted value and the actual value. The smaller the MAPE value, the better the model. MAPE is calculated by:
+\[MAPE=\frac{100\%}{n}  \sum_{i=1}^{n} |y_i-\hat{y_i} | \]\\
+\textbf{Root Mean Squared Error} (RMSE): measures the average error of the model compared to the actual data. The smaller the RMSE value, the better the image. RMSE is calculated by:
+\[RMSE=\sqrt{\sum_{i=1}^{n} \frac{(\hat{y_i}-y_i )^2}{n} }\]\\
+\textbf{Mean Absolute Error} (MAE): MAE calculates the average absolute value of the error. The smaller the MAE value, the better the model.
+\[MAE=\frac{1}{n} \sum_{i=1}^{n} |y_i-\hat{y_i}|\]\\
+Where: \\
+	\indent\textbullet\ \(n\) is the number of observations in the dataset.\\
+	\indent\textbullet\ \(y_i\)  is the true value.\\
+	\indent\textbullet\ \(\hat{y_i}\) is the predicted value.
+\subsection{BITCOIN Dataset} 
+\begin{table}[H]
+    \centering
+    \caption{BITCOIN Dataset's Evaluation}
+    \begin{tabular}{|c|c|c|c|c|}
+         \hline
+         \multicolumn{5}{|c|}{\textbf{BITCOIN Dataset's Evaluation}}\\
+         \hline
+         \centering Model & Training:Testing & RMSE & MAPE (\%) & MAE\\
+         \hline
+         \multirow{2}{*}{Linear Regression} & 6:4 & 25973.6 & 52.6 & 20231.9 \\ & 7:3 & 27883.78 & 55.9 & 23588.47 \\ & \textbf{8:2} & \textbf{13118.3} & \textbf{35.37} & \textbf{10752.59}\\
+         \hline
+         \multirow{2}{*}{ARIMA} & 6:4 & 29294.9 & 64.68 & 23753.45 \\ & 7:3 & 300699.74 & 848.48 & 259993.78 \\ & \textbf{8:2} & \textbf{18089.92} & \textbf{63.35} & \textbf{16223.77}\\
+         \hline
+         \multirow{2}{*}{GRU} & 6:4 & 1572.07 & 2.94 & 1039.9 \\ & 7:3 & 1876.75 & 3.95 & 1431.3 \\ & \textbf{8:2} & \textbf{1042.3} & \textbf{2.01} & \textbf{661.66}\\
+         \hline
+         \multirow{2}{*}{RNN} & 6:4 &  4017.1 &  7.38 & 2923.14 \\ & \textbf{7:3} & \textbf{1357.61} & \textbf{2.35} & \textbf{894.73}\\ & 8:2 & 1147:87 & 2.63 & 806.97 \\
+         \hline
+         \multirow{2}{*}{LSTM} & 6:4 & 3165.17 & 4.78 & 1956.52 \\ & 7:3 & 3566.02 & 5.67 & 2519.39 \\ & \textbf{8:2} & \textbf{1047.35} & \textbf{3.11} & \textbf{1025.77}\\
+         \hline
+         \multirow{2}{*}{GAUSS NEWTON} & \textbf{6:4} & \textbf{17074.42} & \textbf{37.4} & \textbf{12552.76}\\ & 7:3 & 19714.68 & 49.48 & 17183.64 \\ & 8:2 & 28057.44	& 67.41 & 23937.01 \\
+         \hline
+         \multirow{2}{*}{RF} & 6:4 & 23693.88 & 42.84 & 17965.59 \\ & 7:3 & 13048.55 & 31.84 & 10658.68 \\ & \textbf{8:2} &  	\textbf{4201.88} &	\textbf{13.76} & 	\textbf{3547.93} \\
+         \hline
+         \multirow{2}{*}{RESCNN} & 6:4 & 0.14124 & 15.07 & 0.0925 \\ & 7:3 & 0.0873 &  9.05 &  0.0588 \\ & \textbf{8:2} & \textbf{0.0195} & \textbf{2.4} & \textbf{0.0122}\\
+         \hline
+    \end{tabular}
+    \label{bitcoinresult}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/ln_bc.png}
+    \caption{Linear model's result with 8:2 splitting proportion}
+    \label{fig8}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/airma_bc.png}
+    \caption{ARIMA model's result with 8:2 splitting proportion}
+    \label{fig9}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/gru_bc.png}
+    \caption{GRU model's result with 8:2 splitting proportion}
+    \label{fig10}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/rnn_bc.png}
+    \caption{RNN model's result with 7:3 splitting proportion}
+    \label{fig11}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/lstm_bc.png}
+    \caption{LSTM model's result with 8:2 splitting proportion}
+    \label{fig12}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/gauss_bc.png}
+    \caption{Gauss Newton model's result with 6:4 splitting proportion}
+    \label{fig13}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/rf_bc.png}
+    \caption{Random Forest model's result with 8:2 splitting proportion}
+    \label{fig14}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/rescnn_bc.png}
+    \caption{ResCNN model's result with 8:2 splitting proportion}
+    \label{bagginggru}
+  \end{minipage}
+\end{figure}
+
+
+\subsection{NASDAQ Dataset} 
+\begin{table}[H]
+    \centering
+    \caption{NASDAQ Dataset's Evaluation}
+    \begin{tabular}{|c|c|c|c|c|}
+         \hline
+         \multicolumn{5}{|c|}{\textbf{NASDAQ Dataset's Evaluation}}\\
+         \hline
+         \centering Model & Training:Testing & RMSE & MAPE (\%) & MAE\\
+         \hline
+         \multirow{2}{*}{Linear Regression} & 6:4 & 3431.4 & 21.86 & 2961.64 \\ & 7:3 & 2835.49 & 16.4 & 2346.44 \\ & \textbf{8:2} & \textbf{1575.34} & \textbf{11.3} & \textbf{1338.1}\\
+         \hline
+         \multirow{2}{*}{ARIMA} & 6:4 & 2881.99 & 17.33 & 2369.8 \\ & 7:3 & 2771.89 & 18.31 & 2286.68 \\ & \textbf{8:2} & \textbf{2200.68} & \textbf{15.62} & \textbf{1870.2}\\
+         \hline
+         \multirow{2}{*}{GRU} & 6:4 & 190.66 & 1.18 & 151.48 \\ & 7:3 & 196.34 & 1.17 & 153.22 \\ & \textbf{8:2} & \textbf{185.97} & \textbf{1.16} & \textbf{150.58}\\
+         \hline
+         \multirow{2}{*}{RNN} & 6:4 & 481.46 & 1.95 & 405.96 \\ & 7:3 & 234.83 & 1.39 & 181.46 \\ & \textbf{8:2} & \textbf{185.64} & \textbf{1.17} & \textbf{150.21}\\
+         \hline
+         \multirow{2}{*}{LSTM} & 6:4 & 288.39 & 1.82 & 232.1 \\ & 7:3 & 728.29 & 4.89 & 674.76 \\ & \textbf{8:2} & \textbf{264.13} & \textbf{1.65} & \textbf{264.13}\\
+         \hline
+         \multirow{2}{*}{GAUSS NEWTON} & \textbf{6:4} & \textbf{2236.79} & \textbf{13.35} & \textbf{1752.5}\\ & 7:3 & 5481.8 & 35.86 & 4723.69 \\ & 8:2 & 10335.16	& 74.83 & 9487.95 \\
+         \hline
+         \multirow{2}{*}{RF} & 6:4 & 4918.66 & 33.55 & 4563.65 \\ & 7:3 & 1607.76 & 8.31 & 1220.17 \\ & \textbf{8:2} &  	\textbf{379.65} &	\textbf{2.12} & 	\textbf{276.25} \\
+         \hline
+        \multirow{2}{*}{ResCNN} & \textbf{6:4} & \textbf{0.0186} & \textbf{2.12} & \textbf{0.0145}\\ & 7:3 & 0.0211 & 2.27 & 0.0175 \\ & 8:2 & 0.0215	& 2.63 & 0.0179 \\
+         \hline
+    \end{tabular}
+    \label{nasdaqresult}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/ln_nas.png}
+    \caption{Linear model's result with 8:2 splitting proportion}
+    \label{fig15}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/arima_nas.png}
+    \caption{ARIMA model's result with 8:2 splitting proportion}
+    \label{fig16}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/gru_nas.png}
+    \caption{GRU model's result with 8:2 splitting proportion}
+    \label{fig17}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/rnn_nas.png}
+    \caption{RNN model's result with 8:2 splitting proportion}
+    \label{fig18}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/lstm_nas.png}
+    \caption{LSTM model's result with 8:2 splitting proportion}
+    \label{fig19}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/gau_nas.png}
+    \caption{Gauss Newton model's result with 6:4 splitting proportion}
+    \label{fig20}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/rf_naa.png}
+    \caption{RF model's result with 8:2 splitting proportion}
+    \label{fig21}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/rescnn_nas.png}
+    \caption{ResCNN model's result with 6:4 splitting proportion}
+    \label{mbbbggg}
+  \end{minipage}
+\end{figure}
+
+
+\subsection{USD Dataset} 
+\begin{table}[H]
+    \centering
+    \caption{USD Dataset's Evaluation}
+    \begin{tabular}{|c|c|c|c|c|}
+         \hline
+         \multicolumn{5}{|c|}{\textbf{USD Dataset's Evaluation}}\\
+         \hline
+         \centering Model & Training:Testing & RMSE & MAPE (\%) & MAE\\
+         \hline
+         \multirow{2}{*}{Linear Regression} & 6:4 & 7.27 & 6.57 & 6.34 \\ & \textbf{7:3} & \textbf{5.16} & \textbf{4.16} & \textbf{4.04}\\ & 8:2 & 5.59 & 4.4 & 4.67 \\
+         \hline
+         \multirow{2}{*}{ARIMA} & \textbf{6:4} & \textbf{5.67} & \textbf{4.86} & \textbf{4.68}\\ & 7:3 & 11.49 & 9.54 & 9.9 \\ & 8:2 & 7.38 & 6.42 & 6.76 \\
+         \hline
+         \multirow{2}{*}{GRU} & 6:4 & 0.53 & 0.39 & 0.39 \\ & 7:3 & 0.63 & 0.48 & 0.49 \\ & \textbf{8:2} & \textbf{0.55} & \textbf{0.38} & \textbf{0.41}\\
+         \hline
+         \multirow{2}{*}{RNN} & 6:4 & 0.67 & 0.5 & 0.51 \\ & 7:3 & 0.75 & 0.54 & 0.56 \\ & \textbf{8:2} & \textbf{0.64} & \textbf{0.45} & \textbf{0.48}\\
+         \hline
+          \multirow{2}{*}{LSTM} & 6:4 & 0.58 & 0.44 & 0.57 \\ & \textbf{7:3} & \textbf{0.52} & \textbf{0.39} & \textbf{0.38}\\ & 8:2 & 0.53 & 0.38 & 0.4 \\
+         \hline
+         \multirow{2}{*}{GAUSS NEWTON} & \textbf{6:4} & \textbf{7.28} & \textbf{6.58} & \textbf{6.34}\\ & 7:3 & 9.79 & 7.95 & 8.27 \\ & 8:2 & 11.85	& 10.94 & 11.47 \\
+         \hline
+         \multirow{2}{*}{Random Forest} & 6:4 & 2.56 & 1.37 & 1.45 \\ & \textbf{7:3} & \textbf{3.1} & \textbf{1.83} & \textbf{1.94}\\ & 8:2 & 3.74 & 2.53 & 2.7 \\
+         \hline
+        \multirow{2}{*}{ResCNN} & 6:4 & 0.02 & 1.89 & 0.01 \\ & \textbf{7:3} & \textbf{0.02} & \textbf{1.85} & \textbf{0.01}\\ & 8:2 & 0.03 & 3.15 & 0.02 \\
+         \hline
+    \end{tabular}
+    \label{nasdaqresult}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/ln_usd.png}
+    \caption{Linear model's result with 7:3 splitting proportion}
+    \label{fig22}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/arima_usd.png}
+    \caption{ARIMA model's result with 6:4 splitting proportion}
+    \label{fig23}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/gru_usd.png}
+    \caption{GRU model's result with 8:2 splitting proportion}
+    \label{fig24}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/rnn_usd.png}
+    \caption{RNN model's result with 8:2 splitting proportion}
+    \label{fig25}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/lstm_usd.png}
+    \caption{LSTM model's result with 7:3 splitting proportion}
+    \label{fig26}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+        \includegraphics[width=0.9\linewidth]{images/gauss_usd.png}
+    \caption{Gauss Newton model's result with 6:4 splitting proportion}
+    \label{fig27}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+        \includegraphics[width=0.9\linewidth]{images/rf_usd.png}
+    \caption{Random Forest model's result with 7:3 splitting proportion}
+    \label{fig28}
+  \end{minipage}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.8\linewidth}
+    \centering
+        \includegraphics[width=0.9\linewidth]{images/rescnn_usd.png}
+    \caption{ResCNN model's result with 7:3 splitting proportion}
+    \label{fig28}
+  \end{minipage}
+\end{figure}
+
+\section{Conclusion}
+\subsection{Summary}
+In the bitcoin, nasdqa, usd price forecasting work, exploration of diverse methods, from traditional statistical models to advanced machine learning algorithms, has been targeted. Among the implemented models, Linear Regression (LR), Autoregressive Integrated Moving Average (ARIMA), Recurrent Neural Network (RNN), Gated Recurrent Unit (GRU), LSTM, Gauss Newton Method Non -Linear (GNM), Random Forest, RESCNN are the most promising and effective models to predict the price of bitcoin, nasdqa, usd
+The practice of forecasting the price of bitcoin, nasdqa, usd, stems from the complexity and difficulty of major financial markets, requiring models that can capture subtle patterns and relationships in the data.\\
+As can be shown through the evaluation criteria, including RMSE, MAPE, and MAE, the GNM model, Random Forest, and ResCNN were consistently able to perform superior performance at the expected exact edges. Their adaptability to deal with the inherent vagaries of the stock market positions them as reliable tools for investors and analysts looking for reliable predictions.
+
+\subsection{Future Considerations}
+In our future research, it is crucial to prioritize further optimization of the previously mentioned models. This optimization effort should specifically focus on:\\
+\indent\textbullet\ Enhancing the accuracy of the model. While the above algorithms have demonstrated promising results in predicting stock prices, there is a need to further improve the model's accuracy to ensure more precise forecasting outcomes.\\
+\indent\textbullet\ Exploring alternative machine learning algorithms or ensemble techniques. Ensemble techniques, such as combining multiple models or using various ensemble learning methods, can also improve the robustness and accuracy of the forecasts.\\
+\indent\textbullet\ Researching new forecasting models. The field of forecasting continuously evolves, with new algorithms and models being researched and developed. It is crucial to stay updated with these approaches and explore new forecasting models that offer improved accuracy and performance. \\
+By continuously exploring and incorporating new features, data sources, and modeling techniques, we can strive for ongoing optimization of the forecasting models and enhance their ability to predict stock prices with greater precision and reliability.
+
+\section*{Acknowledgment}
+\addcontentsline{toc}{section}{Acknowledgment}
+First and foremost, we would like to express our sincere gratitude to \textbf{Assoc. Prof. Dr. Nguyen Dinh Thuan} and \textbf{Mr. Nguyen Minh Nhut} for their exceptional guidance, expertise, and invaluable feedback throughout the research process. Their mentorship and unwavering support have been instrumental in shaping the direction and quality of this study. Their profound knowledge, critical insights, and attention to detail have significantly contributed to the success of this research.
+\\This research would not have been possible without the support and contributions of our mentors. We would like to extend our heartfelt thanks to everyone involved for their invaluable assistance, encouragement, and belief in our research. Thank you all for your invaluable assistance and encouragement.
+
+%% UNCOMMENT these lines below (and remove the 2 commands above) if you want to embed the bibliografy.
+\begin{thebibliography}{00}
+\bibitem{b1} Dwyer, G.P. (2015), The economics of Bitcoin and similar private digital currencies. Journal of Financial Stability, 17, 81-91.
+\bibitem{b2} Urquhart, A. (2016), The inefficiency of Bitcoin. Economics Letters, 148, 80-82
+\bibitem{b3} Nadarajah, S., Chu, J. (2017), On the inefficiency of Bitcoin. Economics Letters, 150, 6-9.
+\bibitem{b4} Bariviera, A.F. (2017), The inefficiency of Bitcoin revisited: A dynamic approach. Economics Letters, 161, 1-4 Available: https://ieeexplore.ieee.org/document/7046047..
+\bibitem{b5} Dyhrberg, A.H. (2016), Bitcoin, gold and the dollar-a GARCH volatility analysis. Finance Research Letters, 16, 85-92.
+\bibitem{b6} Baur, D.G., Dimpfl, T., Kuck, K. (2018), Bitcoin, gold and the US dollar-a replication and extension. Finance Research Letters, 25, 103-110.
+\bibitem{b7} Dirican, C., Canoz, I. (2017), The cointegration relationship between Bitcoin prices and major world stock indices: An analysis with ARDL 
+model approach. Journal of Economics Finance and Accounting, 
+4(4), 377-392
+\bibitem{b8}  Nguyen, K.Q. (2022), The correlation between the stock market and Bitcoin during COVID-19 and other uncertainty periods. Finance 
+Research Letters, 46, 102284.
+\bibitem{b9} Shen, D., Urquhart, A., Wang, P. (2019), Does twitter predict Bitcoin? Economics Letters, 174, 118-122.
+\bibitem{b10} Maghyereh, A., Abdoh, H. (2021), Time-frequency quantile dependence between Bitcoin and global equity markets. The North American Journal of Economics and Finance, 56, 101355
+\bibitem{b11} Bouri, E., Kristoufek, L., Azoury, N. (2022), Bitcoin and S&P500: Comovements of high-order moments in the time-frequency domain. PLoS One, 17(11), e0277924
+\bibitem{b12} Peter Bruce, Andrew Bruce & Peter Gedeck, "Practical Statistics for Data Scientists", 141-149
+\bibitem{b13} Jason Brownlee (2023) , "How to Create an ARIMA Model for Time Series Forecasting in Python"
+\bibitem{b14} Debasish Kalita (2024) , "A Brief Overview of Recurrent Neural Networks (RNN)"
+
+\end{thebibliography}
+%%%%%%%%%%%%%%%
+
+
+\EOD
+
+\end{document}
